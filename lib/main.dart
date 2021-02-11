@@ -12,8 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -22,15 +20,12 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(
+    return Scaffold(
+        body: Center(
       child: Container(
         child: Text("hello world!"),
-
-
       ),
     ));
   }

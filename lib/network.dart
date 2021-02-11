@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:g_json/g_json.dart';
 import "package:collection/collection.dart";
@@ -14,58 +13,138 @@ class Network {
 
     List<Object> anazEmpire = [];
     List<Object> anazSpotLights = [];
+    List<Object> other = [];
 
-    // for (var i = 0; i < id.listObject.length; i++) {
-    //   // ignore: unrelated_type_equality_checks
-    //   anaz_empire = j['data']['cart_items'][i]['is_anaz_empire'];
-    //   if (anaz_empire == 1) {
-    //     anazEmpire.add(j['data']['cart_items'][i]);
-    //
-    //     //print("anaz_empire =" + i.toString());
-    //   } else if (anaz_empire == 0) {
-    //     anazSpotLights.add(j['data']['cart_items'][i]);
-    //     //print("anaz Spotlight=" + i.toString());
-    //   }
-    // }
+    ///
+    for (var i = 0; i < id.listObject.length; i++) {
+      // ignore: unrelated_type_equality_checks
+      var anazempire = j['data']['cart_items'][i]['is_anaz_empire'];
+      // ignore: unrelated_type_equality_checks
+      if (anazempire == 1) {
+        anazEmpire.add(j['data']['cart_items'][i]);
+
+        //print("anaz_empire =" + i.toString());
+        // ignore: unrelated_type_equality_checks
+      } else if (anazempire == 0) {
+        anazSpotLights.add(j['data']['cart_items'][i]);
+        //print("anaz Spotlight=" + i.toString());
+      } else {
+        other.add(j['data']['cart_items'][i]);
+      }
+    }
+
+    print(anazSpotLights.length);
     // anazEmpire
     //     .forEach((element) => print("anazEmpire   " + element.toString()));
     // anazSpotLights
     //     .forEach((element) => print("anazSpotLights   " + element.toString()));
     var newMap;
-    List<String> streetsList;
-    var listonMaps = j['data']['cart_items'];
-  // for(var i =0; i<listonMaps.listValue.length;i++) {
-      newMap =
-     groupBy(j['data']['cart_items'].listObject, (
-         obj) => obj['product']['seller']['shop_name']);
-   //   streetsList = new List<String>.from(newMap);
-    print("anaz Groceries");
-    print(newMap['Anaz Groceries']);
 
-    print("anaz ANAZ MALL");
-    print(newMap['ANAZ MALL']);
+    newMap = groupBy(j['data']['cart_items'].listObject,
+        (obj) => obj['product']['seller']['shop_name']);
+    //   streetsList = new List<String>.from(newMap);
+    // print("anaz Groceries");
+    // print(newMap['Anaz Groceries']);
 
-  // }
-     // print(streetsList);
-
-    // var data = [
-    //   {"title": 'Avengers', "release_date": '10/01/2019'},
-    //   {"title": 'Creed', "release_date": '10/01/2019'},
-    //   {"title": 'Jumanji', "release_date": '30/10/2019'},
-    // ];
+//     print("anaz ANAZ MALL");
+//     print(newMap.length);
+// print(newMap.isEmpty);
+    List sellerShopName = [];
 
 
-    // var newMap = groupBy(data, (obj) => obj['release_date']).map(
-    //         (k, v) => MapEntry(k, v.map((item) { item.remove('release_date'); return item;}).toList()));
+    for (var i = 0; i < j['data']['cart_items'].listObject.length; i++) {
+      sellerShopName
+          .add(j['data']['cart_items'][i]['product']['seller']['shop_name']);
+    }
+    var distinctIds = sellerShopName.toSet().toList();
+    // print(distinctIds);
+    // for (var i = 0; i < distinctIds.length; i++) {
+    //   print(distinctIds[i].rawString());
     //
-    // print(newMap);
+    //   for (var j = 0; j < newMap[distinctIds[i]].length; j++) {
+    //     print(newMap[distinctIds[i]][j]['product']['name']);
+    //   }
+    // }
+
+
+    // for (var i = 0; i < id.listObject.length; i++) {
+    //   // ignore: unrelated_type_equality_checks
+    //   var anaemic = j['data']['cart_items'][i]['is_anaz_empire'];
+    //   // ignore: unrelated_type_equality_checks
+    //   if (anaemic == 1) {
+    //     print("Anaz Empire");
+    //     for (var i = 0; i < distinctIds.length; i++) {
+    //       print(distinctIds[i].rawString());
+    //
+    //       for (var j = 0; j < newMap[distinctIds[i]].length; j++) {
+    //         print(newMap[distinctIds[i]][j]['product']['name']);
+    //       }
+    //     }
+    //
+    //   } else if (anaemic == 0) {
+    //     print("Anaz Spotlight");
+    //     for (var i = 0; i < distinctIds.length; i++) {
+    //       print(distinctIds[i].rawString());
+    //
+    //       for (var j = 0; j < newMap[distinctIds[i]].length; j++) {
+    //         print(newMap[distinctIds[i]][j]['product']['name']);
+    //       }
+    //     }
+    //
+    //   } else {
+    //     print("others");
+    //     for (var i = 0; i < distinctIds.length; i++) {
+    //       print(distinctIds[i].rawString());
+    //
+    //       for (var j = 0; j < newMap[distinctIds[i]].length; j++) {
+    //         print(newMap[distinctIds[i]][j]['product']['name']);
+    //       }
+    //     }
+    //
+    //   }
+    // }
+   //print(newMap[distinctIds[1]][1]['is_anaz_spotlight']);
+    for (var i = 0; i < distinctIds.length; i++) {
+
+
+
+      //  print(distinctIds[i].rawString());
+
+        for (var j = 0; j < newMap[distinctIds[i]].length; j++) {
+          if(newMap[distinctIds[i]][j]['is_anaz_spotlight'] ==1){
+          //  print("is_anaz_empire");
+        //  print(newMap[distinctIds[i]][j]['product']['name']);
+        }
+          else{
+          //  print("anazSpotLights");
+            print(newMap[distinctIds[i]][j]['product']['name']);
+          }
+
+
+
+        }
+      }
+
+
+
+
+
+    // if (newMap[distinctIds[i]][j]['is_anaz_empire'] == 0) {
+    //   //print("Anaz empire");
+    //   print(newMap[distinctIds[i]][j]['product']['name']);
+    // } else if (newMap[distinctIds[i]][j]['is_anaz_empire'] == 1) {
+    //   //print("Anaz SpotLight");
+    //   print(newMap[distinctIds[i]][j]['product']['name']);
+    // }
 
 
 
 
 
 
-
-
+    // for (var j = 0; j < newMap[distinctIds[0]].length; j++) {
+    //   // print(distinctIds[i]);
+    //   print(newMap[sellerShopName[0]][j]['product']['name']);
+    // }
   }
 }
