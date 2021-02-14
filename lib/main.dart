@@ -114,14 +114,12 @@ class _HomePageState extends State<HomePage> {
                         distinctIds: distinctIds,
                         shopeName: shopeName,
                         key: key),
-
-
-                    if(other.isNotEmpty == false)
-                    buildColumn(
-                        newMap: newSpotLight,
-                        distinctIds: distinctIdnewSpotLight,
-                        shopeName: spotLightNam,
-                        key: keys),
+                    if (other.isNotEmpty == false)
+                      buildColumn(
+                          newMap: newSpotLight,
+                          distinctIds: distinctIdnewSpotLight,
+                          shopeName: spotLightNam,
+                          key: keys),
                   ]);
                 });
           }
